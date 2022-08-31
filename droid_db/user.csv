@@ -1,0 +1,5 @@
+id,email,name,username,hashed_password
+57ed3f00-4746-49ad-b55b-5ce57d2c1956,bean@bean.com,Mr Bean,bean,$2b$12$ycUyYuiksR4SqxoyO.JLoOJGMPzZQIHlnChk/pDunabpLhCp9tX8.
+6d55d731-5c97-47dc-9d99-5f91f2e40c64,gadget@gadget.com,Inspector Gadget,gadget,$2b$12$U/WrzagSXpX49QOpJgDPMeCLFQ0gKwIoYFHfxJDn/R0ZMH7xB5hIa
+7cc1d6f5-1bf8-4a98-8d69-a619918eaad4,carrot@carrot.com,carrot,carrot,$2b$12$FRpZSERQL6..bgJl2jeDe.v66mEWzR7.8ZTRuO9RjT875./y68ICO
+decf6f06-df60-4ca7-8cf1-8c475d838cae,fixit@fixit.com,fixit,fixit,$2b$12$BNw7h8aLXPBhU.ReuvCN.uecsX14qBQFDNqEh5o1KOZX2KRpZT/we

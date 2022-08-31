@@ -1,0 +1,3 @@
+
+droid.db follows foreign key restrictions, but my app ignores them. Why? Eg add a droid_id of droid999 to table feed_log. It should complain but it does not..
+

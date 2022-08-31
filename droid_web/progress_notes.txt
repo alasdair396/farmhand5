@@ -1,0 +1,77 @@
+17 May 2022
+last work done:
+added writing to feed_log when feeder starts or stops
+logic is there to keep feed_log consistent
+
+changes needed:
+    1. fix up horrible code in main.py
+        eg:
+        state = ((jsonable_encoder(db.query(models.CurrentState.stop_button_released).all()))[0])['stop_button_released']
+
+        do it like this:
+        state = (db.query(models.CurrentState.trough_needs_filling).all())[0][0]
+
+        also
+
+        run_time_total=crud.run_time_total(db=db,droid_id="droid03")
+        run_time_total=run_time_total[0]
+        run_time_total=run_time_total[0]
+
+        do it like this:
+        run_time_total=(crud.run_time_total(db=db,droid_id="droid03"))[0][0]
+
+        should just be able to return a value? Not a dictionary, then a list then a value.....
+    
+    2. take out hard coding of 'droid03', put it in the env variable?
+
+next steps:
+    continue work on "do_toggle_stop_button_released"
+    now have the run_time_total
+    need to look up the feed density for the droid
+    then display the days total fed out on the web page
+    display the droid id and other details?
+
+    add the reason for the feed_log entry (eg "power", "light beam", "daily limit" or "schedule") - add a column
+
+
+23 May 2022
+last work done:
+    added a reason to database
+    set up the global environment variable "DROID_ID"
+    started updating 
+    issue on Feeder simulation page - where it is no longer toggling
+    need to continue making it so that "DROID_ID" is the driver.
+
+29 May 2022
+    similation screen can also be used to start and stop
+    (all you need to do is change the droid that you are using (command_set))
+    put key info in a table
+
+    need to figure out how to populate the last 10 records from an sql set of results
+
+24 June 2022
+    got the status screen running /pi_monitor
+    it checks the status of the pi and displays it
+    there is a problem where its not calculating the latest total kgs fed out until it starts up again
+    it should calculate the total fed out when it stops as well....
+
+    also added an input number to the droid table, need to be able to edit this
+
+25 June 2022
+    - changed it so that the /pi_monitor doesn't change the state. The only way to change the state is run the test menu
+    - the stop button parameter is getting in the way.
+    - the stop button needs to be removed, its no longer relevant
+    - ah actually it is... it really should be wired to a sensor on the grain silo, if that is empty don't run!
+    - we need a second input...?
+
+    - don't forget to add the input to droid setup screen? Or should we always have the droid set so the first input is the trough
+    and the second input is the grain silo? Do we need to change the name of the stop button?
+    - if the silo is empty send an email?
+
+    - still need to create a version of the status function that is the service. It runs the unit checking the amount fed, schedule hours,
+    and the pi inputs of trough empty and grain to be fed. Run a check every second.
+
+
+
+    
+    

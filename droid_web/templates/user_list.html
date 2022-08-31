@@ -1,0 +1,33 @@
+{% include 'header.html' %} 
+{% include 'navbar.html' %} 
+<div class ="container" style="text-align: center; margin-top: 2em;">
+    <h2>User List</h2>
+    <a class="nav-link" href="/register"><input type=submit value="Add"> </a>
+</div>
+<div class="container" style="margin-top: 2em; max-width: fit-content;">
+    <table id="data" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>email</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for row in user_model %}
+            <tr>
+                <td>{{row.username}}</td>
+                <td>{{row.name}}</td>
+                <td>{{row.email}}</td>
+                <td><a href="/user_edit?id={{row.id}}"><input type=submit value="Edit"> </a></td>
+                <td><a href="/user/delete/{{row.id}}"><input type=submit value="Delete" style="width:100%"> </a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+</div>
+{% if invalid %}
+<p style="margin-top: 0.5em; color: red">Could not add task.</p>
+{% endif %}
+{% include 'footer.html' %}

@@ -1,0 +1,111 @@
+How to setup and migrate a virtual environment...
+
+Activate your environment (typically put it in the folder env of the main project)
+    1. install pip
+        pyton3 -m pip install ????
+        sudo pip install
+    2. install the application "virutalenv"
+        python3 -m pip install --user virutalenv
+    3. create the directory (call env) to contain the virtual environment
+        from the project root: 
+        python3 -m venv env
+    4. start up the virtual directory and watch the prompt change to "env" indicating you running
+    in the virtual environment
+        source env/bin/activate
+
+        Not to get out of the environment type: deactivate
+
+Install the packages needed as you develop the app. (make sure you are always running in the env environment)
+
+When finished and you want to move the app to a different location, create a requirements.txt file in 
+the root of the project
+    python3 -m pip freeze > requirements.txt
+
+    Note: There is a file call .gitignore which tells git what to ignore. The sub folder called env is listed..
+
+Moving to a new location
+Use github to deposit your code. Clone the code so a copy of requirements.txt is in the new location.
+    1. install pip
+        pyton3 -m pip install ????
+        sudo pip install
+    2. install the application "virutalenv"
+        python3 -m pip install --user virutalenv
+    3. create the directory (call env) to contain the virtual environment
+        from the project root: 
+        python3 -m venv env
+    4. start up the virtual directory and watch the prompt change to "env" indicating you running
+    in the virtual environment
+        source env/bin/activate
+    5. install all the requirements
+        python3 -m pip install -r requirements.txt
+
+
+navbar
+           <li class="nav-item">
+                <a class="nav-link" href="/register">Register</a>
+            </li>
+
+
+@app.get("/register")
+def get_register(request: Request):
+    return templates.TemplateResponse("register.html", {"request": request, "title": "Register"})
+
+@app.post("/register")
+def register(request: Request,
+username: str = Form(...),
+email: str = Form(...),
+name: str = Form(...),
+password: str = Form(...),
+db: Session = Depends(get_db)):
+    hashed_password = get_hashed_password(password)
+    invalid = False
+    if crud.get_user_by_username(db=db,username=username):
+        invalid = True
+    if crud.get_user_by_email(db=db,email=email):
+        invalid = True
+    if not invalid:
+        crud.create_user(db=db, user=schemas.UserCreate(username=username,email=email,name=name,hashed_password=hashed_password))
+        response = RedirectResponse("/login", status_code=status.HTTP_302_FOUND)
+        return response
+    else:
+        return templates.TemplateResponse("register.html",{"request": request, "title": "Register", "invalid": True},
+        status_code=HTTP_400_BAD_REQUEST)
+
+
+register.html
+{% include 'header.html'%}
+{% include 'navbar.html'%}
+<style>
+    .container {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 1em;
+    }
+</style>
+<div class="container">
+    <form action="/register" method="POST">
+
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username">
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email">
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name">
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {% if invalid %}
+        <p style="margin-top: 0.5em; color: #eb4823">This user is already registered.</p>
+    {% endif %}    
+</div>
+{% include 'footer.html'%} 

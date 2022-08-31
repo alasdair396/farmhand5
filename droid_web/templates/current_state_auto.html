@@ -1,0 +1,98 @@
+{% include 'header.html' %} 
+{% include 'navbar.html' %} 
+<div class ="container" style="text-align: center; margin-top: 2em;">
+    <h1>{{page_title}} {{DROID_ID}}</h1>
+    <h3>({{droid_description}})</h3>
+    <table id="data" class="table table-bordered">
+      <tbody>
+          <tr>
+              <td align ="right">Current State:</td>
+              {%if state_running == 'go'%}
+                  <td >AUGER ON</td>
+              {%endif%}
+              {%if state_running == 'stop'%}
+                  <td>AUGER OFF</td>
+              {%endif%}
+          </tr>
+          <tr>
+            <td align = "right">Droid ID:</td>
+            <td>{{DROID_ID}}</td>
+          </tr>
+          <tr>
+            <td align = "right">Current Feed Rate: </td>
+            <td>{{feed_density_current}} grams/second</td>
+          </tr>
+          <tr>
+            <td align = "right">Today's Total Kgs Fed Out:</td>
+            <td>{{feed_daily_total}} kgs</td>
+          </tr>
+          <tr>
+            <td align = "right">Feeding Schedule</td>
+            {% if still_in_feed_hrs == 1 %}
+            <td>IN feeding times</td>
+            {% else %}
+            <td>OUT of feeding times</td>
+            {% endif %}
+          </tr>
+          <tr>
+            <td align = "right">Daily Kg Limit</td>
+            {% if daily_limit_not_reached == 1%}
+            <td>Kg limit NOT reached.</td>
+            {% else %}
+            <td>Kg limit has been reached.</td>
+            {% endif %}
+          </tr>
+          <tr>
+            <td align = "right">Trough level</td>
+            {% if trough_needs_filling == 1%}
+            <td>Trough is EMPTY.</td>
+            {% else %}
+            <td>Trough is FULL.</td>
+            {% endif %}
+          </tr>
+          <tr>
+            <td align = "right">Stop Button</td>
+            {% if stop_button_released  == 1%}
+            <td>Stop button is released.</td>
+            {% else %}
+            <td>Stop button has been pressed.</td>
+            {% endif %}
+          </tr>
+      </tbody>
+    </table>
+</div>
+<div class="container" style="margin-top: 2em; max-width: fit-content;">
+  <div>
+      {% if state_running == "go" %}
+      <img src="/static/feeding_out.png" alt="Feeder Running" style="width: 100%;">
+      {% else %}
+      <img src="/static/not_feeding_out.png" alt="Feeder Running" style="width: 100%;">
+      {% endif %}
+  </div>
+</div>
+<div class="container" style="margin-top: 2em; max-width: fit-content;" style="display: flex; flex-direction: row;flex-wrap: wrap; padding-right: 0; margin: 0.5em;">
+  <table id="data" class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Time Stamp</th>
+          <th>Action</th>
+          <th>Run Seconds</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for row in feed_log_last_10_model %}
+              <tr>
+                <td>{{row.action_timestamp}}</td>
+                <td>{{row.action}}</td>
+                <td>{{row.run_seconds}}</td>
+                <td>{{row.reason}}</td>
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</div>
+{% if invalid %}
+<p style="margin-top: 0.5em; color: red">Could not add task.</p>
+{% endif %}
+{% include 'footer.html' %}

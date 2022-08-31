@@ -1,0 +1,50 @@
+{% include 'header.html' %} 
+
+{% include 'navbar.html' %} 
+<div class ="container" style="text-align: center; margin-top: 2em;">
+    <h1>Welcome, {{user.name}}</h1>
+    <h2>Your tasks:</h2>
+</div>
+
+
+<div class="row" style = "border-bottom: 1px solid #555; margin: 0.5em; ">
+    <form action="/tasks" method="POST" style="display: flex; flex-direction: row; padding-right: 0; margin: 0.5em;">
+        <div >
+            <input class="form-control" type="text" name="text" id="text" placeholder="Add a new task...">
+        </div>   
+        <div>
+            <input class="form-control" type="text" name="complete" id="complete" placeholder="0 for not done, 1 for done..." >
+        </div>
+        <div>
+            <button type="submit" style="background: none; border: none;">
+                <i class="far fa-check-square" style="display: block; font-size: 1.5em; margin: auto;"></i>
+            </button>
+        </div>
+    </form>
+</div>
+<div class="container" style="margin-top: 2em; max-width: fit-content;" style="display: flex; flex-direction: row;flex-wrap: wrap; padding-right: 0; margin: 0.5em;">
+    <table id="data" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks%}
+            <tr>
+                <td>{{task.text}}</td>
+                <td>{% if task.complete >0 %}DONE{% endif %}</td>
+                <td><a href="task/delete/{{task.id}}"><input type=submit value="Delete"></a></td>
+                <td><a href="task_edit/{{task.id}}"><input type=submit value="Edit"></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% if invalid %}
+<p style="margin-top: 0.5em; color: red">Could not add task.</p>
+{% endif %}
+{% include 'footer.html' %}

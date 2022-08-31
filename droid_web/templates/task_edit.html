@@ -1,0 +1,28 @@
+{% include 'header.html'%}
+{% include 'navbar.html'%}
+<style>
+    .container {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 1em;
+    }
+</style>
+<div class="container">
+    <form action="/task_update/{{id}}" method="POST"> 
+    <div class="mb-3">
+        <label for="text" class="form-label">Task</label>
+        <input type="text" class="form-control" name="text" id="text" value="{{parameter['text']}}"  aria-describedby="text">
+        <div id="text" class="form-text">Describe the task.</div>
+    </div>
+    <div class="mb-3">
+        <label for="complete" class="form-label">Complete</label>
+        <input type="text" class="form-control" name="complete" id="complete" value="{{parameter['complete']}}"  aria-describedby="complete">
+        <div id="complete" class="form-text">Enter 1 when task complete, or 0 for incomplete.</div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    </form>  
+</div>
+{% include 'footer.html'%}

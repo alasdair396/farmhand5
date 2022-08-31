@@ -1,0 +1,43 @@
+{% include 'header.html' %} 
+
+{% include 'navbar.html' %} 
+<div class ="container" style="text-align: center; margin-top: 2em;">
+    <h2>{{title}} </h2>
+    <a class="nav-link" href="/droid_add"><input type=submit value="Add"> </a>
+</div>
+<!-- <div class="container" style="margin-top: 2em; max-width: fit-content;" style="display: flex; flex-direction: row; padding-right: 0; margin: 0.5em;"> -->
+<!--<div class="container" style="display: flex; flex-direction: row; padding-right: 0; margin: 0.5em;"> -->
+<div class="container" style="margin-top: 2em; max-width: fit-content;">
+    <table id="data" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>Droid id</th>
+            <th>Description</th>
+            <th>Feed Density</th>
+            <th>Server</th>
+            <th>Command Set</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for row in droid_model %}
+            <tr>
+                <td>{{row.id}}</td>
+                <td>{{row.droid_name}}</td>
+                <td>{{row.droid_id}}</td>
+                <td>{{row.droid_description}}</td>
+                <td>{{row.feed_density}}</td>
+                <td>{{row.droid_server}}</td>
+                <td>{{row.command_set}}</td>
+                <td><a href="/droid_edit?id={{row.id}}"><input type=submit value="Edit" style="width:100%"> </a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% if invalid %}
+<p style="margin-top: 0.5em; color: red">Could not add task.</p>
+{% endif %}
+{% include 'footer.html' %}

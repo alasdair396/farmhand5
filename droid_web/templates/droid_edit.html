@@ -1,0 +1,45 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+<div class="container" style="margin-top: 1em;">
+        <form action="/droid_parameters/{{id}}" method="POST">
+            <div class="mb-3">
+                <label for="droid_name" class="form-label">Droid Name</label>
+                <input type="text" class="form-control" name="droid_name" id="droid_name" value="{{parameter['droid_name']}}"  aria-describedby="droidName">
+                <div id="droidName" class="form-text">The name of the droid</div>
+            </div>
+            <br>
+            <div class=""mb-3>
+                <label for="droid_name" class="form-label">Droid ID</label>
+                <input type="text" class="form-control" name="droid_id" id="droid_id" value="{{parameter['droid_id']}}" aria-describedby="droidID">
+                <div id="droidId" class="form-text">Unique Droid ID</div>
+            </div>
+            <br>            
+            <div class=""mb-3>
+                <label for="droid_name" class="form-label">Droid Description</label>
+                <input type="text" class="form-control" name="droid_description" id="droid_description" value="{{parameter['droid_description']}}" aria-describedby="droidDescription">
+                <div id="droidDescription" class="form-text">Describe the droid!</div>
+            </div>
+            <br>
+            <div class=""mb-3>
+                <label for="droid_name" class="form-label">Feed Density</label>
+                <input type="text" class="form-control" name="feed_density" id="feed_density" value="{{parameter['feed_density']}}" aria-describedby="feed_density">
+                <div id="feedDensity" class="form-text">How many grams of feed is discharged per second.</div>
+            </div>
+            <br>
+            <div class=""mb-3>
+                <label for="droid_name" class="form-label">Droid Server IP Address</label>
+                <input type="text" class="form-control" name="droid_server" id="droid_server" value="{{parameter['droid_server']}}" aria-describedby="droid_server">
+                <div id="droidServer" class="form-text">The server in the cloud that the droid sends data to.</div>
+            </div>
+            <br>
+            <div class=""mb-3>
+                <label for="droid_name" class="form-label">Command Set</label>
+                <input type="text" class="form-control" name="command_set" id="command_set" value="{{parameter['command_set']}}" aria-describedby="command_set">
+                <div id="command_set" class="form-text">Is the droid a "simulation" or does it use a Raspberry Pi command set? </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <br>
+        </form>
+</div>
+{% include 'footer.html' %}

@@ -1,0 +1,64 @@
+UPDATE table_name
+SET column1 = value1,
+    column2 = value2,
+    ...
+WHERE condition;
+
+
+UPDATE user
+SET name = 'fred',
+WHERE email = 'bean@bean.com';
+
+UPDATE courses
+SET published_date = '2020-08-01' 
+WHERE course_id = 3;
+
+UPDATE user
+SET name = 'henry' 
+WHERE email = 'bean@bean.com';
+
+
+select * FROM user
+WHERE email = 'bean@bean.com';
+
+
+SELECT * FROM "user" ORDER BY "email"
+
+
+UPDATE "user" SET
+"id" = '57ed3f00-4746-49ad-b55b-5ce57d2c1956',
+"email" = 'bean@bean.com',
+"name" = 'Mr Beaner2',
+"username" = 'bean',
+"hashed_password" = '$2b$12$ycUyYuiksR4SqxoyO.JLoOJGMPzZQIHlnChk/pDunabpLhCp9tX8.'
+WHERE "id" = '57ed3f00-4746-49ad-b55b-5ce57d2c1956';
+
+
+       SET username=       'bean',
+        name=               'Mr Beaner',
+        email=              'bean@bean.com',
+        hashed_password=           '$2b$12$69gWMlRk2Nkb1b1tIkiPDutu0pwtzmQ3otRDa.0VyvtQYkTqgAlD.'
+        WHERE
+        id = '57ed3f00-4746-49ad-b55b-5ce57d2c1956'
+
+
+
+select * from "feed_log" where "action_timestamp" > now() - interval '1 year';
+select * from "feed_log" where "action_timestamp" > now() - interval '1 day';
+select sum("run_seconds"*"feed_density") from "feed_log" where "action_timestamp" > now() - interval '1 day';
+
+SELECT sum(run_seconds*feed_density)
+    FROM feed_log
+    WHERE Date('now','localtime') = substr(action_timestamp,0,11)
+    AND
+    droid_id = 'droid03'
+    GROUP BY substr(action_timestamp,0,11);
+
+SELECT sum("run_seconds"*"feed_density") 
+FROM "feed_log"
+WHERE "action_timestamp" > now() - interval '1 day'
+AND
+"droid_id" = 'droid03'
+GROUP BY date("action_timestamp")
+
+SUBSTRING ( string ,start_position , length )

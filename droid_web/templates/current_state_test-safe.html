@@ -1,0 +1,64 @@
+{% include 'header.html' %} 
+{% include 'navbar.html' %} 
+<div class ="container" style="text-align: center; margin-top: 2em;">
+    <h2>{{title}}: {{state_running}}</h2>
+</div>
+<div class="container" style="margin-top: 2em; max-width: fit-content;">
+    <table id="data" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Still In Feed Hours</th>
+            <th>Daily Limit Not Reached</th>
+            <th>Trough Needs Filling</th>
+            <th>Stop Button Released</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for row in current_state_model %}
+            <tr>
+                <td>{{row.still_in_feed_hrs}}</td>
+                <td>{{row.daily_limit_not_reached}}</td>
+                <td>{{row.trough_needs_filling}}</td>
+                <td>{{row.stop_button_released}}</td>
+            </tr>
+            <tr>
+                  {% if row.still_in_feed_hrs == 1%}
+                    <td><a href="/toggle_state/1">In feed hours.</td>
+                  {% else %}
+                    <td><a href="/toggle_state/1">Outside feed hours.</td>
+                  {% endif %}
+
+                  {% if row.daily_limit_not_reached == 1%}
+                  <td><a href="/toggle_daily_limit_not_reached">Daily limit NOT reached. </td>
+                {% else %}
+                  <td><a href="/toggle_daily_limit_not_reached">Daily limit reached.</td>
+                {% endif %}
+
+                {% if row.trough_needs_filling == 1%}
+                <td><a href="/toggle_trough_needs_filling">Trough needs filling. </td>
+                {% else %}
+                <td><a href="/toggle_trough_needs_filling">Trough is full.</td>
+                {% endif %}
+
+                {% if row.stop_button_released == 1%}
+                <td><a href="/toggle_stop_button_released">Power on.</td>
+                {% else %}
+                <td><a href="/toggle_stop_button_released">Power off</td>
+                {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+<div>
+    {% if state_running == "go" %}
+    <img src="/static/feeding_out.png" alt="Feeder Running" style="width: 100%;">
+    {% else %}
+    <img src="/static/not_feeding_out.png" alt="Feeder Running" style="width: 100%;">
+    {% endif %}
+</div>
+
+</div>
+{% if invalid %}
+<p style="margin-top: 0.5em; color: red">Could not add task.</p>
+{% endif %}
+{% include 'footer.html' %}

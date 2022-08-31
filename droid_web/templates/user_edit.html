@@ -1,0 +1,40 @@
+{% include 'header.html'%}
+{% include 'navbar.html'%}
+<style>
+    .container {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 1em;
+    }
+</style>
+<div class="container">
+    <form action="/user_update/{{id}}" method="POST">
+    
+    <div class="mb-3">
+        <label for="username" class="form-label">User Name</label>
+        <input type="text" class="form-control" name="username" id="username" value="{{parameter['username']}}"  aria-describedby="userName">
+        <div id="userName" class="form-text">The name of the user.</div>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" class="form-control" name="email" id="email" value="{{parameter['email']}}"  aria-describedby="email">
+        <div id="email" class="form-text">Email address.</div>
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" name="name" id="name" value="{{parameter['name']}}"  aria-describedby="name">
+        <div id="name" class="form-text">Your full name.</div>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" name="password" id="password" value="{{parameter['password']}}"  aria-describedby="password">
+        <div id="password" class="form-text">A password.</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {% if invalid %}
+        <p style="margin-top: 0.5em; color: #eb4823">This user is already registered.</p>
+    {% endif %}    
+</div>
+{% include 'footer.html'%}

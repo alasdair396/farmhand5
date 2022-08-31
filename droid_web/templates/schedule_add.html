@@ -1,0 +1,60 @@
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+<div class="container" style="margin-top: 1em;">
+        <form action="/schedule_save" method="POST">
+            <div class=""mb-3>
+               <!-- <label for="droid_name" class="form-label">Droid ID</label> -->
+                <input type="text" class="form-control" name="droid_id" id="droid_id" value="{{droid_id}}" readonly aria-describedby="droidID">
+            </div> 
+            <div class="mb-3">
+                <label for="schedule_date" class="form-label">Schedule Date</label>
+                <input type="date" class="form-control" name="schedule_date" id="schedule_date" aria-describedby="schedule_date">
+                <div id="schedule_date" class="form-text"></div>
+            </div>
+            <br>
+            <div class=""mb-3>
+                <label for="meal_1_start" class="form-label">Meal 1</label>
+                <input type="time" class="form-control" name="meal_1_start" id="meal_1_start" aria-describedby="meal_1_start">
+                <div id="meal_1_Start" class="form-text"></div>
+            </div>
+            <div class=""mb-3>
+                <input type="time" class="form-control" name="meal_1_stop" id="meal_1_stop" aria-describedby="meal_1_stop">
+                <div id="meal_1_Stop" class="form-text"></div>
+            </div>
+            <br>
+            <div class=""mb-3>
+                <label for="meal_2_start" class="form-label">Meal 2</label>
+                <input type="time" class="form-control" name="meal_2_start" value="00:00" id="meal_2_start" aria-describedby="meal_2_start">
+                <div id="meal_2_Start" class="form-text"></div>
+            </div>
+            <div class=""mb-3>
+                <input type="time" class="form-control" name="meal_2_stop" value="00:00" id="meal_2_stop" aria-describedby="meal_2_stop">
+                <div id="meal_2_Stop" class="form-text"></div>
+            </div>
+            <br>
+            <div class=""mb-3>
+                <label for="meal_3_start" class="form-label">Meal 3</label>
+                <input type="time" class="form-control" name="meal_3_start" value="00:00" id="meal_3_start" aria-describedby="meal_3_start">
+                <div id="meal_3_Start" class="form-text"></div>
+            </div>
+            <div class=""mb-3>
+                <input type="time" class="form-control" name="meal_3_stop" value="00:00" id="meal_3_stop" aria-describedby="meal_3_stop">
+                <div id="meal_3_Stop" class="form-text"></div>
+            </div>
+            <br>  
+            <div class=""mb-3>
+                <label for="plan_kgs" class="form-label">Planned Daily Kgs</label>
+                <input type="number" class="form-control" name="plan_kgs" value="0" id="plan_kgs" aria-describedby="plan_kgs">
+                <div id="plan_kgs" class="form-text"></div>
+            </div>
+            <br>          
+            <div class=""mb-3>
+                <label for="date_multiplier" class="form-label">Schedule Date Multiplier</label>
+                <input type="number" class="form-control" name="date_multiplier" id="date_multiplier" value=1 aria-describedby="date_multiplier">
+                <div id="date_multiplier" class="form-text"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <br>
+        </form>
+</div>
+{% include 'footer.html' %}

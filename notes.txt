@@ -1,0 +1,57 @@
+docker-compose up -d
+#gets the docker-compose.yaml file running in detached mode
+
+docker exec -it 911fc017f8e7
+
+
+Try this!
+https://zhao-li.medium.com/getting-started-with-postgresql-using-docker-compose-34d6b808c47c
+
+# docker-compose.yml
+version: '3'
+services:
+  database:
+    image: "postgres" # use latest official postgres version
+    env_file:
+      - database.env # configure postgres
+    volumes:
+      - database-data:/var/lib/postgresql/data/ # persist data even if container shuts downvolumes:
+  database-data: # named volumes can be managed easier using docker-compose
+
+# database.env
+POSTGRES_USER=unicorn_user
+POSTGRES_PASSWORD=magical_password
+POSTGRES_DB=rainbow_database
+
+docker-compose up 
+
+#get into the database
+docker-compose run database bash # drop into the container shell
+
+or
+#find the container id:
+docker ps -a
+
+docker exec -it 07242c90c8a3 /bin/sh
+
+# connect to the database
+psql --host=database --username=unicorn_user --dbname=rainbow_database
+psql --host=database --username=droid --dbname=droid
+
+-----------------------------------
+version: '3.7'
+services:
+    postgres:
+        image: postgres
+        restart: always
+        environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+        logging:
+          options:
+            max-size: 10m
+            max-file: "3"
+        ports:
+          - '5438:5432'
+        volumes: 
+          - ./postgres-data:/var/lib/postgresql/data

@@ -1,0 +1,36 @@
+{% include 'header.html'%}
+{% include 'navbar.html'%}
+<style>
+    .container {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 1em;
+    }
+</style>
+<div class="container">
+    <form action="/droid_save" method="POST">
+    
+    <div class="mb-3">
+        <label for="droid_name" class="form-label">Droid Name</label>
+        <input type="text" class="form-control" id="droid_name" name="droid_name">
+    </div>
+    <div class="mb-3">
+        <label for="droid_description" class="form-label">Droid Description</label>
+        <input type="text" class="form-control" id="droid_description" name="droid_description">
+    </div>
+    <div class="mb-3">
+        <label for="feed_density" class="form-label">Feed Density</label>
+        <input type="text" class="form-control" id="feed_density" name="feed_density">
+    </div>
+    <div class="mb-3">
+        <label for="droid_server" class="form-label">Droid Server</label>
+        <input type="text" class="form-control" id="droid_server" name="droid_server">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {% if invalid %}
+        <p style="margin-top: 0.5em; color: #eb4823">This user is already registered.</p>
+    {% endif %}    
+</div>
+{% include 'footer.html'%}

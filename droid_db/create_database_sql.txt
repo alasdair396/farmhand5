@@ -1,0 +1,173 @@
+
+###### droid
+#Works
+CREATE TABLE "droid" (
+	"id"	VARCHAR NOT NULL,
+	"droid_name"	VARCHAR NOT NULL,
+	"droid_id"	VARCHAR NOT NULL,
+	"droid_description"	VARCHAR NOT NULL,
+	"feed_density"	FLOAT NOT NULL,
+	"droid_server"	VARCHAR,
+	"command_set"	TEXT NOT NULL,
+	"trough_level_input_no"	INTEGER NOT NULL,
+	PRIMARY KEY("id")
+)
+
+##### current_state
+#Fails
+CREATE TABLE "current_state" (
+	"instance"	TEXT NOT NULL,
+	"still_in_feed_hrs"	INTEGER,
+	"daily_limit_not_reached"	INTEGER,
+	"trough_needs_filling"	INTEGER,
+	"stop_button_released"	INTEGER,
+	"droid_id"	TEXT NOT NULL,
+	FOREIGN KEY("droid_id") REFERENCES "droid"("droid_id"),
+	PRIMARY KEY("instance")
+)
+#works
+CREATE TABLE "current_state" (
+	"instance" TEXT NOT NULL,
+	"still_in_feed_hrs"	INTEGER,
+	"daily_limit_not_reached"	INTEGER,
+	"trough_needs_filling"	INTEGER,
+	"stop_button_released"	INTEGER,
+	"droid_id"	TEXT NOT NULL,
+	PRIMARY KEY("instance")
+)
+
+
+####  feed_log
+#fails
+CREATE TABLE "feed_log" (
+	"feed_id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"action_timestamp"	TEXT NOT NULL,
+	"unix_seconds"	REAL NOT NULL,
+	"droid_id"	TEXT NOT NULL,
+	"action"	TEXT NOT NULL,
+	"feed_density"	NUMERIC NOT NULL,
+	"run_seconds"	NUMERIC NOT NULL,
+	"reason"	TEXT NOT NULL,
+	"method"	TEXT,
+	FOREIGN KEY("droid_id") REFERENCES "droid"("droid_id")
+)
+#Works
+CREATE TABLE "feed_log" (
+	"feed_id"	INTEGER NOT NULL,
+	"action_timestamp"	TEXT NOT NULL,
+	"unix_seconds"	REAL NOT NULL,
+	"droid_id"	TEXT NOT NULL,
+	"action"	TEXT NOT NULL,
+	"feed_density"	NUMERIC NOT NULL,
+	"run_seconds"	NUMERIC NOT NULL,
+	"reason"	TEXT NOT NULL,
+	"method"	TEXT,
+    PRIMARY KEY("feed_id")
+)
+
+#maybe
+CREATE TABLE "feed_log" (
+	"feed_id"	INTEGER NOT NULL,
+	"action_timestamp"	TIMESTAMPTZ NOT NULL,
+	"unix_seconds"	REAL NOT NULL,
+	"droid_id"	TEXT NOT NULL,
+	"action"	TEXT NOT NULL,
+	"feed_density"	NUMERIC NOT NULL,
+	"run_seconds"	NUMERIC NOT NULL,
+	"reason"	TEXT NOT NULL,
+	"method"	TEXT,
+    PRIMARY KEY("feed_id")
+)
+
+### schedule
+#works
+CREATE TABLE "schedule" (
+	"id"	TEXT NOT NULL UNIQUE,
+	"droid_id"	TEXT NOT NULL,
+	"schedule_date"	TEXT NOT NULL,
+	"meal_1_start"	TEXT,
+	"meal_1_stop"	TEXT,
+	"meal_2_start"	TEXT,
+	"meal_2_stop"	TEXT,
+	"meal_3_start"	TEXT,
+	"meal_3_stop"	TEXT,
+	"plan_kgs"	INTEGER,
+	PRIMARY KEY("id","droid_id")
+)
+
+#### Task
+# Fails
+CREATE TABLE "task" (
+	"id"	VARCHAR NOT NULL,
+	"text"	VARCHAR NOT NULL,
+	"user_id"	VARCHAR NOT NULL,
+	"complete"	INTEGER,
+	FOREIGN KEY("user_id") REFERENCES "user"("id"),
+	PRIMARY KEY("id")
+)
+# works
+CREATE TABLE "task" (
+	"id"	VARCHAR NOT NULL,
+	"text"	VARCHAR NOT NULL,
+	"user_id"	VARCHAR NOT NULL,
+	"complete"	INTEGER,
+	PRIMARY KEY("id")
+)
+
+
+#### user
+#works
+CREATE TABLE "user" (
+	"id"	VARCHAR NOT NULL,
+	"email"	VARCHAR NOT NULL,
+	"name"	VARCHAR,
+	"username"	VARCHAR NOT NULL,
+	"hashed_password"	VARCHAR NOT NULL,
+	PRIMARY KEY("id")
+)
+
+## indexes
+#they all work!
+
+CREATE INDEX "ix_droid_droid_description" ON "droid" (
+	"droid_description"
+)
+
+CREATE UNIQUE INDEX "ix_droid_droid_id" ON "droid" (
+	"droid_id"
+)
+
+CREATE UNIQUE INDEX "ix_droid_droid_name" ON "droid" (
+	"droid_name"
+)
+
+CREATE UNIQUE INDEX "ix_droid_id" ON "droid" (
+	"id"
+)
+
+CREATE INDEX "ix_task_id" ON "task" (
+	"id"
+)
+
+CREATE INDEX "ix_task_text" ON "task" (
+	"text"
+)
+
+CREATE UNIQUE INDEX "ix_user_email" ON "user" (
+	"email"
+)
+
+CREATE UNIQUE INDEX "ix_user_id" ON "user" (
+	"id"
+)
+
+CREATE UNIQUE INDEX "ix_user_name" ON "user" (
+	"name"
+)
+
+CREATE UNIQUE INDEX "ix_user_username" ON "user" (
+	"username"
+)
+
+
+

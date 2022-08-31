@@ -1,0 +1,57 @@
+FROM postgres:alpine3.16
+
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=r2d2Droid
+ENV POSTGRES_DB=droid
+ENV ACCESS_LOG=${ACCESS_LOG:-/proc/1/fd/1}
+ENV ERROR_LOG=${ERROR_LOG:-/proc/1/fd/2}
+
+
+
+
+
+
+FROM postgres:alpine3.16
+
+ENV ACCESS_LOG=${ACCESS_LOG:-/proc/1/fd/1}
+ENV ERROR_LOG=${ERROR_LOG:-/proc/1/fd/2}
+
+#ENTRYPOINT gunicorn main:app -b 0.0.0.0:80 -w 4 -k uvicorn.workers.UvicornWorker
+
+EXPOSE 8000
+
+ENTRYPOINT /usr/local/bin/gunicorn main:app \
+-b 0.0.0.0:8000 \
+-w 4 \
+-k uvicorn.workers.UvicornWorker \
+--chdir /app \
+--access-logfile "$ACCESS_LOG" \ 
+--error-logfile "$ERROR_LOG"
+
+
+
+#To build your new image called my-app:1.0, build the Dockerfile contained in this directory.
+#docker build -t my-app:1.0 .
+#
+# don't forget the space . above!!!!
+#
+# To list images
+#docker images
+#
+# You then RUN the image to create a container that runs
+#docker run [the image id of my-app:1.0]
+#
+# docker run -p [host-port]:[container-port] [image id]
+#eg:
+# docker run -d -p 8000:8000 5970241e9669
+#
+# list the containers running with the command:
+# docker ps -a
+#
+# using the container id
+#
+# Always think:
+# "Are we trying to do something with a container or with an image?"
+# The image is the "static recipe ingredients", while the container is the server that is running or stopped"
+#
+

@@ -1,0 +1,25 @@
+
+
+# docker-compose.yml
+version: '3'
+services:
+  database:
+    image: "postgres" # use latest official postgres version
+    env_file:
+      - .env # configure postgres
+    ports:
+    - '5432:5432'
+    restart: always
+    volumes:
+      - droid-data:/var/lib/postgresql/data/ # persist data even if container shuts downvolumes:
+
+  adminer:
+    image: adminer
+    restart: always
+    depends_on:
+      - database
+    ports:
+      - 8080:8080
+
+volumes:
+  droid-data: # named volumes can be managed easier using docker-compose
